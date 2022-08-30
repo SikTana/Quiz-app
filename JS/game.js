@@ -1,39 +1,77 @@
 const question = document.getElementById("question");
 const choices = Array.from(document.getElementsByClassName('choice-text'));
 console.log(choices);
-let currentquestion = {};
-let acceptinganswer = true;
+let currentQuestion = {};
+let acceptingAnswer = true;
 let score = 0;
 let questionCounter = 0;
-let availableQuestion = [];
-let questions =[
-    [
-        {
-          "id": 1,
-          "question": "How to delete a directory in Linux?",
-          "description": "delete folder",
-          "answers": {
-            "answer_a": "ls",
-            "answer_b": "delete",
-            "answer_c": "remove",
-            "answer_d": "rmdir",
-            "answer_e": null,
-            "answer_f": null
-          },
-          "multiple_correct_answers": "false",
-          "correct_answers": {
-            "answer_a_correct": "false",
-            "answer_b_correct": "false",
-            "answer_c_correct": "false",
-            "answer_d_correct": "true",
-            "answer_e_correct": "false",
-            "answer_f_correct": "false"
-          },
-          "explanation": "rmdir deletes an empty directory",
-          "tip": null,
-          "tags": [],
-          "category": "linux",
-          "difficulty": "Easy"
-        }
-      ]
-];
+let availableQuestions = [];
+
+// CONSTANTS    
+  
+  const CORRECT_BONUS = 10;
+  const MAX_QUESTIONS = 3;
+
+  startGame = () => {
+    //console.log(question)
+    questionCounter = 0;
+    score =0;
+    availableQuestions = [...questions]; 
+   
+    getNewQuestion();
+  };
+   getNewQuestion = () => { 
+    if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS){
+      //go to the end page
+      return window.location.assign("/end.html");
+    }
+    questionCounter++;
+    const questionIndex = Math.floor(Math.random(questionCounter,availableQuestions.length));
+
+    currentQuestion = availableQuestions[questionIndex]
+    question.innerText = currentQuestion.question;
+
+   choices.forEach(choice => {
+    const number = choice.dataset['number'];
+    choice.innerText = currentQuestion['choice' + number ];
+   });
+
+   availableQuestions.splice(questionIndex, 1);
+   //console.log(availableQuestions);
+   acceptingAnswer = true;
+
+  };
+
+  choices.forEach(choice => {
+    choice.addEventListener('click', e =>{
+      console.log(e.target);
+      //if (acceptingAnswer) return;
+
+      acceptingAnswer = false;
+      const selectedChoice = e.target;
+      const selectedAnswer = selectedChoice.dataset['number'];
+
+      // const classApply = e.target;
+      //  if (selectedAnswer == currentQuestion.answer) {
+        //  classToApply = 'correct';
+      //  }
+
+      const classToApply =
+      selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
+       console.log(classToApply);
+      console.log(selectedAnswer ===  currentQuestion.answer);
+      getNewQuestion();
+    });
+  });
+
+  startGame();
+
+
+    
+ 
+  
+
+            
+        
+
+    
