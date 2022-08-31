@@ -10,7 +10,7 @@ let availableQuestions = [];
 // CONSTANTS    
   
   const CORRECT_BONUS = 10;
-  const MAX_QUESTIONS = 3;
+  const MAX_QUESTIONS = 10;
 
   startGame = () => {
     //console.log(question)
@@ -58,11 +58,18 @@ let availableQuestions = [];
 
       const classToApply =
       selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
+
+      //selectedChoice.classlist.add(classToApply);
        console.log(classToApply);
-      console.log(selectedAnswer ===  currentQuestion.answer);
+       console.log(selectedAnswer ==  currentQuestion.answer);
+
+      setTimeout(()=>{
+        selectedChoice.parentElement.classList.remove(classToApply);
+      
       getNewQuestion();
-    });
+    }, 1000);
   });
+});
 
   startGame();
 
