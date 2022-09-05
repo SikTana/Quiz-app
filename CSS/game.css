@@ -45,6 +45,18 @@
     font-size: 2rem;
 }
 
-.hud-main-prefix{
+.hud-main-text{
     text-align: center;
+}
+
+#progressBar{
+    width: 20rem;
+    height: 4rem;
+    border: 0.3rem solid #56a5eb;
+}
+
+#progressBarfull{
+    height: 3.4rem;
+    background-color: #56a5eb;
+    width: 0;
 }
